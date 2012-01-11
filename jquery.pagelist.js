@@ -13,11 +13,14 @@
 			nextText : '>',
 			linkPrefix : '',
 			classPrefix : '',
+			position : 'bottom',
+			isScroll : false,
 			isNavigation : true
 		},obj),
 		displayNum = 1,
 		pages = $(this).find('>'+elm),
 		pageLen = pages.length,
+		scrollPosY = $(this).get(0).offsetTop,
 		cn;
 		
 		switch(settings.style){
@@ -46,10 +49,17 @@
 		if(settings.isNavigation) src+='<li class="'+settings.classPrefix+'next"><a href="#next">'+settings.nextText+'</a></li>';
 		src+='</ul>';
 		src+='</div>';
-		$(this).append(src);
+		
+		if(settings.position == "bottom"){
+			$(this).append(src);
+		}else{
+			$(this).prepend(src);
+		}
+		
 		
 		var thumbs = $(".pageList_default_style li").bind('click',function(e){
 			e.preventDefault();
+			if(settings.isScroll) window.scroll( 0, scrollPosY );
 			var targetText = $(e.target).text();
 			var c = !!settings.linkPrefix ? targetText.split(settings.linkPrefix)[1] : targetText;
 			
