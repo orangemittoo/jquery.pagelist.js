@@ -11,16 +11,15 @@
 			naviId : '',
 			prevText : '<',
 			nextText : '>',
-			linkPrefix : '',
+			pagePrefix : '',
 			classPrefix : '',
 			position : 'bottom',
-			isScroll : false,
+			scroll : {isExecution:false,id:''}, 
 			isNavigation : true
 		},obj),
 		displayNum = 1,
 		pages = $(this).find('>'+elm),
 		pageLen = pages.length,
-		scrollPosY = $(this).get(0).offsetTop,
 		cn;
 		
 		switch(settings.style){
@@ -44,7 +43,7 @@
 		src+='<ul>';
 		if(settings.isNavigation) src+='<li class="'+settings.classPrefix+'prev '+settings.classPrefix+'none"><a href="#prev">'+settings.prevText+'</a></li>';
 		for(var i=1;i<=pageLen;i++){
-			src+='<li '+(i==1?'class="'+settings.classPrefix+'current"':'""')+'><a href="#'+settings.linkPrefix+i+'">'+settings.linkPrefix+i+'</a></li>';
+			src+='<li '+(i==1?'class="'+settings.classPrefix+'current"':'""')+'><a href="#'+settings.pagePrefix+i+'">'+settings.pagePrefix+i+'</a></li>';
 		}
 		if(settings.isNavigation) src+='<li class="'+settings.classPrefix+'next"><a href="#next">'+settings.nextText+'</a></li>';
 		src+='</ul>';
@@ -56,15 +55,22 @@
 			$(this).prepend(src);
 		}
 		
-		
+		if(settings.scroll.isExecution){
+			try{
+				var scrollPosY = settings.scroll.id=='' ? $(this).get(0).offsetTop : $(settings.scroll.id).get(0).offsetTop;
+			}catch(e){
+				alert('settings.scroll.id is inaccurate');
+			}
+			
+		}
 		var thumbs = $(".pageList_default_style li").bind('click',function(e){
 			e.preventDefault();
-			if(settings.isScroll) window.scroll( 0, scrollPosY );
+			if(settings.scroll.isExecution) window.scroll( 0, scrollPosY );
 			var targetText = $(e.target).text();
-			var c = !!settings.linkPrefix ? targetText.split(settings.linkPrefix)[1] : targetText;
+			var c = !!settings.pagePrefix ? targetText.split(settings.pagePrefix)[1] : targetText;
 			
 			if(isNaN(c)){
-				c = targetText.split(settings.linkPrefix)[0];
+				c = targetText.split(settings.pagePrefix)[0];
 				var id;
 				if(c == settings.prevText){
 					if(displayNum == 1) return;
