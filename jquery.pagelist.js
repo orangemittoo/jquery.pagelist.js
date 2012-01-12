@@ -13,7 +13,8 @@
 			nextText : '>',
 			pagePrefix : '',
 			classPrefix : '',
-			position : 'bottom',
+			valign : 'bottom',
+			halign : 'center',
 			scroll : {isExecution:false,id:''}, 
 			isNavigation : true
 		},obj),
@@ -38,8 +39,23 @@
 			if(i!=0) $(pages[i]).hide();
 		}
 		
+		var hpos;
+		switch(settings.halign){
+			case 'center':
+				hpos = 'margin:0px auto';
+				break;
+			case 'left':
+				hpos = '';
+				break;
+			case 'right':
+				hpos = 'margin:0px 0px 0px auto';
+				break;
+			default :
+				hpos = 'margin:0px auto';
+				break;
+		}
 		var src = '';
-		src+='<div id="'+settings.naviId+'" class="pageList_default_style '+cn+'">';
+		src+='<table style="'+hpos+'" id="'+settings.naviId+'" class="pageList_default_style '+cn+'"><tr><td>';
 		src+='<ul>';
 		if(settings.isNavigation) src+='<li class="'+settings.classPrefix+'prev '+settings.classPrefix+'none"><a href="#prev">'+settings.prevText+'</a></li>';
 		for(var i=1;i<=pageLen;i++){
@@ -47,9 +63,9 @@
 		}
 		if(settings.isNavigation) src+='<li class="'+settings.classPrefix+'next"><a href="#next">'+settings.nextText+'</a></li>';
 		src+='</ul>';
-		src+='</div>';
+		src+='</tr></td></table>';
 		
-		if(settings.position == "bottom"){
+		if(settings.valign == "bottom"){
 			$(this).append(src);
 		}else{
 			$(this).prepend(src);

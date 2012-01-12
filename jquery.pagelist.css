@@ -1,6 +1,7 @@
-.pageList_default_style ul{text-align:center;}
-.pageList_default_style li{display:inline-block;}
+.pageList_default_style ul{text-align:center;overflow:hidden;_zoom:1;list-style:none;margin:0px;padding:0px;}
+.pageList_default_style li{float:left;}
 .pageList_default_style li a{color:#000;display:inline-block;}
+.pageList_default_style li.none a{color:#ccc;cursor:default;text-decoration:none}
 
 .pageList_square_style li a{text-decoration:none;border:1px #aaa solid;padding:2px 7px;background:#ccc;margin-right:5px;}
 .pageList_square_style li a:hover {background:#FFF9C1;}
@@ -10,9 +11,9 @@
 .pageList_square_style li.prev a{background:none;border:none;text-decoration:underline}
 .pageList_square_style li.current{cursor:default}
 .pageList_square_style li.current a{color:#FFF;background:#71bf16;cursor:default}
-.pageList_square_style li.none a{color:#ccc;cursor:default;text-decoration:none}
 
 .pageList_plane_style li a {margin-right:10px;}
 .pageList_plane_style li.current{font-weight:bold;}
 .pageList_plane_style li.current a{color:#c00}
+
 
